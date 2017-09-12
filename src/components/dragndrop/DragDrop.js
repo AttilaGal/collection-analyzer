@@ -3,6 +3,12 @@ import { Header  } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone'
 import csv from 'csv';
 
+import {
+  addCsvFile
+} from '../../actions/csvActions.js'
+
+import store from '../../store';
+
 function onDrop(files) {
   if(files.length > 1)
     throw new Error('Only 1 file allowed!')
@@ -11,7 +17,7 @@ function onDrop(files) {
     const fileAsBinaryString = reader.result;
     csv.parse(fileAsBinaryString, {}, (err, data) => {
       if(err) console.error(err);
-      console.log(data);
+      store.dispatch(addCsvFile(data));
     });
   };
   reader.onabort = () => console.log('file reading was aborted');
