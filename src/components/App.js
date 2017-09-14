@@ -8,13 +8,13 @@ import constants from '../constants';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
+    this.state = {appState: store.getState() };
   }
 
   componentDidMount() {
     store.subscribe(() => {
-      console.log(store.getState());
-      this.setState(store.getState());
+      console.log(store.getState().toJS());
+      this.setState({appState: store.getState()});
     });
   }
 
@@ -22,8 +22,8 @@ class App extends Component {
     store.unsubscribe();
   }
 
-  showContent() {
-    switch(this.state.status) {
+  showContent = () => {
+    switch(this.state.appState.get('status')) {
       case constants.AppStatus.WAITING_FOR_CSV:
         return (<DragDrop />);
       case constants.AppStatus.CSV_LOADED:

@@ -1,16 +1,17 @@
 import { ActionTypes } from '../actionTypes';
 import constants from '../constants';
+import immutable from 'immutable';
 
-const initialState = {
+const initialState = immutable.fromJS({
   status: constants.AppStatus.WAITING_FOR_CSV,
   csv: {},
   games: [],
-};
+});
 
 function csv(state, action) {
   switch(action.type) {
     case ActionTypes.ADD_CSV_FILE:
-      state = action.data;
+      state.set(immutable.fromJS(action.data));
       return state;
     default:
       return state;
@@ -27,7 +28,7 @@ function games(state, action) {
         keys.forEach((key, i) => mappedGame[key] = g[i]);
         return mappedGame
       });
-      state = mappedGames;
+      state.set(immutable.fromJS(mappedGames));
       return state;
     default:
       return state;
@@ -45,11 +46,11 @@ function status(state, action) {
 }
 
 function collectionAnalyzerApp(state = initialState, action) {
-  return {
-    status: status(state.status, action),
-    csv: csv(state.csv, action),
-    games: games(state.games, action),
-  };
+  return immutable.fromJS({
+    status: status(state.get('status'), action),
+    csv: csv(state.get('csv'), action),
+    games: games(state.get('games'), action),
+  });
 }
 
 export default collectionAnalyzerApp
