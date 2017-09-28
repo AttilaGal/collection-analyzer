@@ -1,11 +1,14 @@
 import React from 'react';
+import store from '../../store';
 import { Bar, defaults } from 'react-chartjs-2';
+import { getUniqueYearsFromGames } from './chartHelper';
 
 function getBarChartData() {
+  const games = store.getState().get('games');
   return {
-    labels: ['2012','2013','2014','2015','2016','2017'],
+    labels: getUniqueYearsFromGames(games),
     datasets: [{
-      label: '# of Votes',
+      label: 'purchased games per year',
       data: [12, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
