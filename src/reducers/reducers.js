@@ -28,7 +28,7 @@ function games(state, action) {
         keys.forEach((key, i) => mappedGame[key] = g[i]);
         return mappedGame
       });
-      state.set(immutable.fromJS(mappedGames));
+      state = immutable.fromJS(mappedGames);
       return state;
     default:
       return state;
