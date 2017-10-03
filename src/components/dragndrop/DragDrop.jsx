@@ -1,22 +1,19 @@
 import React from 'react';
-import { Header  } from 'semantic-ui-react';
-import Dropzone from 'react-dropzone'
+import { Header } from 'semantic-ui-react';
+import Dropzone from 'react-dropzone';
 import csv from 'csv';
 
-import {
-  addCsvFile
-} from '../../actions/csvActions.js'
+import addCsvFile from '../../actions/csvActions';
 
 import store from '../../store';
 
 function onDrop(files) {
-  if(files.length > 1)
-    throw new Error('Only 1 file allowed!')
+  if (files.length > 1) throw new Error('Only 1 file allowed!');
   const reader = new FileReader();
   reader.onload = () => {
     const fileAsBinaryString = reader.result;
     csv.parse(fileAsBinaryString, {}, (err, data) => {
-      if(err) console.error(err);
+      if (err) console.error(err);
       store.dispatch(addCsvFile(data));
     });
   };
@@ -26,19 +23,19 @@ function onDrop(files) {
   reader.readAsBinaryString(files[0]);
 }
 
-function DragDrop(props) {
+function DragDrop() {
   return (
     <div className="app">
       <Header
-        as='h3'
-        content='DragDrop'
-        textAlign='center'
+        as="h3"
+        content="DragDrop"
+        textAlign="center"
         style={{
           margin: 0,
-          padding: 0
+          padding: 0,
         }}
       />
-      <Dropzone 
+      <Dropzone
         onDrop={onDrop}
       >
         <p>Drop your BGG collection.csv export here.</p>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container, Segment} from 'semantic-ui-react';
+import { Header, Container, Segment } from 'semantic-ui-react';
 import DragDrop from './dragndrop/DragDrop';
 import StatisticsOverview from './StatisticsOverview';
 import store from '../store';
@@ -8,13 +8,12 @@ import constants from '../constants';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {appState: store.getState() };
+    this.state = { appState: store.getState() };
   }
 
   componentDidMount() {
     store.subscribe(() => {
-      console.log(store.getState().toJS());
-      this.setState({appState: store.getState()});
+      this.setState({ appState: store.getState() });
     });
   }
 
@@ -23,13 +22,13 @@ class App extends Component {
   }
 
   showContent = () => {
-    switch(this.state.appState.get('status')) {
+    switch (this.state.appState.get('status')) {
       case constants.AppStatus.WAITING_FOR_CSV:
         return (<DragDrop />);
       case constants.AppStatus.CSV_LOADED:
         return (<StatisticsOverview />);
       default:
-        return;
+        return null;
     }
   }
 
@@ -37,9 +36,9 @@ class App extends Component {
     return (
       <div className="app">
         <Header
-          as='h3'
-          content='Collection Analyzer'
-          textAlign='center'
+          as="h3"
+          content="Collection Analyzer"
+          textAlign="center"
         />
         <Container text>
           <Segment.Group>

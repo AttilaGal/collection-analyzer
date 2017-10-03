@@ -1,6 +1,6 @@
-import { ActionTypes } from '../actionTypes';
+import ActionTypes from '../actionTypes';
 
-export function addCsvFile(file) {
+export default function addCsvFile(file) {
   return {
     type: ActionTypes.ADD_CSV_FILE,
     data: file,

@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 import { getUniqueYearsFromGames } from '../chartHelper';
-import { testData } from './mappedgames_test_data.js';
+import { testData } from './mappedgames_test_data';
 
 describe('chartHelper', () => {
   test('it should contain 3 years', () => {

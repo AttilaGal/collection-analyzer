@@ -1,6 +1,6 @@
-import { ActionTypes } from '../actionTypes';
-import constants from '../constants';
 import immutable from 'immutable';
+import ActionTypes from '../actionTypes';
+import constants from '../constants';
 
 const initialState = immutable.fromJS({
   status: constants.AppStatus.WAITING_FOR_CSV,
@@ -9,7 +9,7 @@ const initialState = immutable.fromJS({
 });
 
 function csv(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case ActionTypes.ADD_CSV_FILE:
       state.set(immutable.fromJS(action.data));
       return state;
@@ -19,27 +19,27 @@ function csv(state, action) {
 }
 
 function games(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case ActionTypes.ADD_CSV_FILE:
       const keys = action.data.splice(0, 1)[0];
-      const games = action.data.splice(1, action.data.length - 1);
-      const mappedGames = games.map(g => {
-        let mappedGame = {};
-        keys.forEach((key, i) => mappedGame[key] = g[i]);
-        return mappedGame
+      const gamez = action.data.splice(1, action.data.length - 1);
+      const mappedGames = gamez.map((g) => {
+        const mappedGame = {};
+        keys.forEach((key, i) => { mappedGame[key] = g[i]; });
+        return mappedGame;
       });
-      state = immutable.fromJS(mappedGames);
-      return state;
+      const newState = immutable.fromJS(mappedGames);
+      return newState;
     default:
       return state;
   }
 }
 
 function status(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case ActionTypes.ADD_CSV_FILE:
-      state = constants.AppStatus.CSV_LOADED;
-      return state;
+      const newState = constants.AppStatus.CSV_LOADED;
+      return newState;
     default:
       return state;
   }
@@ -53,4 +53,4 @@ function collectionAnalyzerApp(state = initialState, action) {
   });
 }
 
-export default collectionAnalyzerApp
+export default collectionAnalyzerApp;
